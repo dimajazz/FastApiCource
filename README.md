@@ -16,7 +16,7 @@ python -m venv myvenv
 
 ## Start app
 
-- cd /src/
+- cd ./src/
 - uvicorn main:app --reload
 
 ## Docs are on the link
