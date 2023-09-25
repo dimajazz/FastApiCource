@@ -1,39 +1,28 @@
 # FastAPI cource practice
 
----
-
 ## Create virtual environment
 
 python -m venv myvenv
 
----
-
 ## Activate virtual environment
 
-Windows: myvenv\Scripts\activate
-Linux: source myvenv/bin/activate
-
----
+- Windows: myvenv\Scripts\activate
+- Linux: source myvenv/bin/activate
 
 ## Install libs & packeges
 
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-
----
+- python -m pip install --upgrade pip
+- pip install -r requirements.txt
 
 ## Start app
 
-python .\src\workshop\app.py
-
----
+- cd /src/
+- uvicorn main:app --reload
 
 ## Docs are on the link
 
-http://localhost:8000/docs
-http://localhost:8000/redoc
-
----
+- http://localhost:8000/docs
+- http://localhost:8000/redoc
 
 ## Put in JWT secret in .env
 
