@@ -13,6 +13,7 @@ fastapi-course-env/
 db.sqlite3
 database.sqlite3
 .DS_Store
+*.db
 
 # Static folder
 /static/
