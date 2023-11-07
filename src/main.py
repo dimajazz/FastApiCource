@@ -2,12 +2,14 @@ from fastapi import FastAPI
 
 from routes import blog_get_routes
 from routes import blog_post_routes
+from routes import user_routes
 
 from db import models
 from db.database import engine
 
 
 app = FastAPI()
+app.include_router(user_routes.router)
 app.include_router(blog_get_routes.router)
 app.include_router(blog_post_routes.router)
 
