@@ -14,5 +14,31 @@ def create_user(db: Session, request: UserBase):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-
     return new_user
+
+
+def get_all_users(db: Session):
+    return db.query(DBUser).all()
+
+
+def get_user(db: Session, id: int):
+    return db.query(DBUser).filter(DBUser.id == id).first()
+
+
+def update_user(db: Session, id: int, request: UserBase):
+    user = db.query(DBUser).filter(DBUser.id == id)
+    new_password = Hash.bcrypt(request.password)
+    user.update({
+        DBUser.username: request.username,
+        DBUser.email: request.email,
+        DBUser.password: new_password
+    })
+    db.commit()
+    return {'username': request.username, 'email': request.email}
+
+
+def delete_user(db: Session, id: int):
+    user = get_user(db, id)
+    db.delete(user)
+    db.commit()
+    return {'message': 'The user has been deleted.'}
