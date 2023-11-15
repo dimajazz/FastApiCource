@@ -1,10 +1,12 @@
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 from routes import blog_get_routes
 from routes import blog_post_routes
 from routes import user_routes
 from routes import article_routes
+from routes import product_routes
 
 from db import models
 from db.database import engine
@@ -17,6 +19,7 @@ app.include_router(user_routes.router)
 app.include_router(blog_get_routes.router)
 app.include_router(blog_post_routes.router)
 app.include_router(article_routes.router)
+app.include_router(product_routes.router)
 
 
 @app.get('/hello',
@@ -33,3 +36,13 @@ def story_exception_handler(request: Request, exc: StoryException):
 
 
 models.Base.metadata.create_all(engine)
+
+origins = ['http://localhost:3000']
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)

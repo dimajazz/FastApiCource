@@ -8,7 +8,7 @@ from utility.exceptions import StoryException
 
 def create_article(db: Session, request: ArticleBase):
     if request.content.startswith('Once upon a time'):
-        raise StoryException('No stories')
+        raise StoryException('No stories please')
     new_article = DBArticle(
         title=request.title,
         content=request.content,
