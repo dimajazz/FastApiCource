@@ -2,11 +2,14 @@ from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-from routes import blog_get_routes
-from routes import blog_post_routes
-from routes import user_routes
-from routes import article_routes
-from routes import product_routes
+from routes import (
+    blog_get_routes,
+    blog_post_routes,
+    user_routes,
+    article_routes,
+    product_routes,
+    auth_rotes
+)
 
 from db import models
 from db.database import engine
@@ -20,6 +23,7 @@ app.include_router(blog_get_routes.router)
 app.include_router(blog_post_routes.router)
 app.include_router(article_routes.router)
 app.include_router(product_routes.router)
+app.include_router(auth_rotes.router)
 
 
 @app.get('/hello',
