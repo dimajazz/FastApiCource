@@ -37,3 +37,9 @@ $RECYCLE.BIN/
 
 # Uploaded files
 uploaded_files/
+
+# Testing
+.pytest_cache/
+
+# Logging
+logs/

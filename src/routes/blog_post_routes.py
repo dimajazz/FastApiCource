@@ -39,7 +39,7 @@ def create_comment(
         ...,
         min_length=10,
         max_length=50,
-        regex='^[a-z\s]*$'),
+        pattern=r'^[a-z\s]*$'),
     version: list[float] = Query(..., alias='v'),
     comment_id: int = Path(gt=1, le=15),
 ):
