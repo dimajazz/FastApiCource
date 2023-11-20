@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Request, status
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.websockets import WebSocket
 import time
 
 from routes import (
@@ -13,13 +14,14 @@ from routes import (
     auth_rotes,
     file_rotes
 )
-from templates import templates
 
 from db import models
 from db.database import engine
 
 from utility.exceptions import StoryException
 
+from templates import templates
+from templates.chat_client import html
 
 app = FastAPI()
 app.include_router(user_routes.router)
@@ -43,6 +45,26 @@ def index():
 @app.exception_handler(StoryException)
 def story_exception_handler(request: Request, exc: StoryException):
     return JSONResponse(status_code=status.HTTP_418_IM_A_TEAPOT, content={'detail': exc.name})
+
+
+@app.get('/chat')
+async def get_chat():
+    return HTMLResponse(html)
+
+
+clients = []
+
+
+@app.websocket('/chat/chatroom')
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    clients.append(websocket)
+    start_time = time.time()
+    chatroom_lifecycle = 300
+    while time.time() - start_time < chatroom_lifecycle:
+        data = await websocket.receive_text()
+        for client in clients:
+            await client.send_text(data)
 
 
 @app.middleware('http')
