@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-def log(tag='', message=''):
+def logger(tag='', message=''):
     current_time = datetime.now()
 
     with open('logs/log.txt', 'w+') as log_file:

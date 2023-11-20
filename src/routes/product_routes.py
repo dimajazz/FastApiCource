@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status, Header, Cookie, Form
 from fastapi.responses import Response, HTMLResponse, PlainTextResponse
 from typing import Optional
-from utility.custom_log import log
+from utility.custom_log import logger
 import time
 
 router = APIRouter(

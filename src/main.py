@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+import time
 
 from routes import (
     blog_get_routes,
@@ -42,6 +43,18 @@ def index():
 @app.exception_handler(StoryException)
 def story_exception_handler(request: Request, exc: StoryException):
     return JSONResponse(status_code=status.HTTP_418_IM_A_TEAPOT, content={'detail': exc.name})
+
+
+@app.middleware('http')
+async def add_middleware(request: Request, call_next):
+    '''
+    The Middleware that check how much time other functions spent for their work.
+    '''
+    start_time = time.time()
+    response = await call_next(request)
+    time_duration = time.time() - start_time
+    response.headers['time-duration'] = str(time_duration)
+    return response
 
 
 models.Base.metadata.create_all(engine)
