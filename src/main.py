@@ -12,6 +12,7 @@ from routes import (
     auth_rotes,
     file_rotes
 )
+from templates import templates
 
 from db import models
 from db.database import engine
@@ -27,6 +28,7 @@ app.include_router(article_routes.router)
 app.include_router(product_routes.router)
 app.include_router(auth_rotes.router)
 app.include_router(file_rotes.router)
+app.include_router(templates.router)
 
 
 @app.get('/hello',
@@ -57,3 +59,7 @@ app.add_middleware(
 app.mount('/uploaded_files',
           StaticFiles(directory='uploaded_files'),
           name='uploaded_files')
+
+app.mount('/templates/static',
+          StaticFiles(directory='templates/static'),
+          name='static')

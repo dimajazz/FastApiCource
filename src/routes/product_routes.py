@@ -2,6 +2,7 @@ from fastapi import APIRouter, status, Header, Cookie, Form
 from fastapi.responses import Response, HTMLResponse, PlainTextResponse
 from typing import Optional
 from utility.custom_log import log
+import time
 
 router = APIRouter(
     prefix='/product',
@@ -11,6 +12,11 @@ router = APIRouter(
 products = ['hat', 'trousers', 'shirt', 'boots']
 
 
+async def simulate_long_calculations():
+    time.sleep(5)
+    return 'The long calculations have been finished'
+
+
 @router.post('/new')
 def create_product(product_title: str = Form(...)):
     products.append(product_title)
@@ -18,8 +24,10 @@ def create_product(product_title: str = Form(...)):
 
 
 @router.get('/all')
-def get_all_products():
+async def get_all_products():
     log('From product', 'Call to get all products')
+    await simulate_long_calculations()
+
     data = f'All you need to go outside is ' + ', '.join(products)
     response = Response(status_code=status.HTTP_404_NOT_FOUND,
                         content=data, media_type='text/plain')

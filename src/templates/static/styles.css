@@ -1,0 +1,24 @@
+.product {
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+    width: 200px;
+}
+
+.product .product_title {
+    margin-bottom: 5px;
+    font-size: 2em;
+    text-align: center;
+    font-weight: 700;
+    color: darkgreen;
+}
+
+.product .product_description {
+    color: brown;
+    margin-bottom: 5px;
+}
+
+.product .product_price {
+    color: blue;
+    text-align: right;
+}

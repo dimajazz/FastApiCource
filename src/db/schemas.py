@@ -50,3 +50,9 @@ class ArticleDisplay(BaseModel):
 
     class Config():
         from_attributes = True
+
+
+class ProductBase(BaseModel):
+    title: str
+    description: str
+    price: float
